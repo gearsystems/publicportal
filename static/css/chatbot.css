@@ -1,0 +1,47 @@
+.bubble{
+    margin-top: 15px;
+    margin-bottom: 0px;
+    width: 45%;
+    height: auto;
+    border-width: 2px;
+    border-radius: 10px;
+    padding:10px;
+}
+body
+  {
+    background-image: url("/static/img/bcgnd1.jpg");
+    background-size: 1300px 700px;
+    background-repeat: repeat;
+  }
+.left{
+  background-color: rgb(22, 147, 230);
+    border-color: rgb(51, 153, 102);
+  
+    float: left;
+    
+}
+
+.right{
+    background-color: white;
+    /*border-color: rgb(174, 204, 158);*/
+    /*border-style: inset;*/
+    margin-right: 30px;
+    float: right;
+}
+.form-control 
+{
+    height: 40px;
+    border: 5px solid white; 
+    -webkit-box-shadow: 
+      inset 0 0 8px  rgba(0,0,0,0.4),
+            0 0 16px rgba(0,0,0,0.4); 
+    -moz-box-shadow: 
+      inset 0 0 8px  rgba(0,0,0,0.4),
+            0 0 16px rgba(0,0,0,0.4); 
+    box-shadow: 
+      inset 0 0 8px  rgba(0,0,0,0.4),
+            0 0 16px rgba(0,0,0,0.4); 
+    padding: 5px;
+    /*background: rgba(100,100,100,0.3);*/
+    margin: 0 0 10px 0;
+}

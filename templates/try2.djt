@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple markers</title>
+    <style>
+  html, body, #map-canvas {
+    height: 100%;
+    margin: 0px;
+    padding: 0px
+}
+</style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+
+function initMap() {
+  var myLatLng = {lat: -25.363, lng: 131.044};
+
+  var map = new google.maps.Map(document.getElementById('map-canvas'), {
+    zoom: 15,
+    center: myLatLng
+  });
+
+var geocoder = new google.maps.Geocoder();
+geocodeAddress(geocoder,map);
+var marker;
+ 
+
+}
+
+
+	
+  function geocodeAddress(geocoder, resultsMap) {
+  var address = "{{addr}}";
+  geocoder.geocode({'address': address}, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      resultsMap.setCenter(results[0].geometry.location);
+      marker = new google.maps.Marker({
+        map: resultsMap,
+        position: results[0].geometry.location,
+        draggable: true
+      });
+      document.getElementById('info').innerHTML = [
+                     marker.getPosition().lat(),
+                     marker.getPosition().lng()
+                 ].join(', ');
+
+        google.maps.event.addListener(marker, 'dragstart', function() {
+ 	updateMarkerPosition(marker.getPosition());
+                 });
+ 
+google.maps.event.addListener(marker, 'drag', function() {
+	updateMarkerPosition(marker.getPosition());
+});
+
+google.maps.event.addListener(marker, 'dragend', function() {
+	updateMarkerPosition(marker.getPosition());
+});
+                 
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}
+
+
+function updateMarkerPosition(latLng) {
+                 document.getElementById('info').innerHTML = [
+                     latLng.lat(),
+                     latLng.lng()
+                 ].join(', ');
+             }
+
+// google.maps.event.addDomListener(window, 'load', initMap);
+// }
+function updateloc(){
+  var latlng = document.getElementById('info').innerHTML;
+  console.log(latlng);
+  window.parent.updateloc2(latlng);
+}
+
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap"></script>
+
+
+     <div id="map-canvas" style="float:left;width:70%; height:100%"></div>
+     <div id="directionsPanel" style="float:right;width:30%;height 100%">
+    <B>Latitude, Longitude: <span id="info"></span></B>
+    <div id = "info"></div>
+    </div>
+
+    <button onclick="updateloc()">Tweet this!</button>
+  </body>
+</html>

@@ -22,3 +22,29 @@ class Mapobject(models.Model):
 	location = models.CharField(max_length = 100)
 	latitude = models.CharField(max_length = 30)
 	longitude = models.CharField(max_length = 30)
+
+class IncompleteComplaint(models.Model):
+	id=models.AutoField(primary_key=True)
+	title= models.CharField(max_length=100, null=True)
+	type=models.CharField(max_length=10, null=True)
+	description=models.TextField(null=True)
+	userid=models.IntegerField(null=True)
+	location = models.CharField(max_length = 100, null=True)
+	latitude = models.CharField(max_length = 30, null=True)
+	longitude = models.CharField(max_length = 30, null=True)
+	image=models.ImageField(upload_to='incomplete-complaints',blank=True)
+	# rating = models.FloatField()
+	def __unicode__(self):
+		return self.title
+
+class Tweet(models.Model):
+	parent_tweet_id=models.CharField(max_length=100,primary_key=True)
+	referralid=models.ForeignKey(IncompleteComplaint)
+	mode = models.IntegerField(null=True,default = 0)
+	reply_to_tweetid=models.CharField(max_length=100,null=True)
+	state=models.IntegerField(default=-1)
+	username = models.CharField(max_length=100,null=True)
+	statelist=models.CharField(max_length=100,default="0000000")
+	def __unicode__(self):
+		return self.parent_tweet_id
+
