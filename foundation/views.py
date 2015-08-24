@@ -86,9 +86,6 @@ def livechatbot(request):
 		state_list=request.POST.get('state_list')
 		complaint_id=int(request.POST.get('complaint_id'))
 		msg_content=rec_msg
-		print msg_content
-		print state_list
-		hello()
 		new_msg,state,mode,state_list,complaint_id=chatanswer(rec_msg,new_msg,state,mode,complaint_id,state_list)
 		response_data['message'] = new_msg
 		response_data['uid'] = 0

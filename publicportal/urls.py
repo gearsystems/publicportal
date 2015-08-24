@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     url(r'^getlocation','foundation.views.retlocation'),
     url(r'^mapareachatbot/(?P<address>[\w ]+)/$','foundation.views.maparea2'),
 
+
 )
 
 

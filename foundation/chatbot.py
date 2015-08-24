@@ -1,16 +1,17 @@
-# this is where the file is
+
 from foundation.models import Mapobject,Complaint,IncompleteComplaint
 from django.contrib.auth.models import User,AnonymousUser
-import nlpshit
-# from publicportal import settings
-# from django.core.management import setup_environ
-# setup_environ(settings)
+import nlp
 
 
+# different states of the bot.
 states_strs = ["title", "description", "type", "location", "latlong", "image", "success"]
 
 
 def update(stateslist,column):
+	"""
+		Updating the state from 0 to 1 of a given column(state name) in the stateslist
+	"""
 	i = states_strs.index(column)
 	s_l = list(stateslist)
 	print s_l
@@ -19,8 +20,11 @@ def update(stateslist,column):
 	return stateslist
 
 def nlp_complaint(message, stateslist):
+	"""
+	passing the complaint through a nlp library nltk to parse the location and complaint part of the sentence
+	"""
 	complaint=IncompleteComplaint()
-	loc, com = nlpshit.parse(message)
+	loc, com = nlp.parse(message)
 	if (len(loc) != 0):
 		stateslist = update(stateslist,"location")
 		complaint.location=loc
@@ -31,8 +35,6 @@ def nlp_complaint(message, stateslist):
 	zero_index=stateslist.find('0')
 	return zero_index+1,stateslist,complaint.id
 
-def hello():
-	print "HEllo working"
 
 def getdesp(rec_msg,new_msg,state,mode,complaint_id,stateslist):
 	if mode%2 == 0:
@@ -50,7 +52,6 @@ def getlatlong(rec_msg,new_msg,state,mode,complaint_id,stateslist,parent_tweet_i
 		return "Please visit http%3A%2F%2F127%2E0%2E0%2E1%3A8000%2Fmaparea%2F"+str(parent_tweet_id)+"%2F"+complaint.location,state,mode+1
 	else:
 		complaint=IncompleteComplaint.objects.get(id=complaint_id)
-		print rec_msg
 		rec_msg=rec_msg.split(',')
 		complaint.latitude=rec_msg[0]
 		complaint.longitude=rec_msg[1]
@@ -100,54 +101,51 @@ def getsuccess(rec_msg,new_msg,state,mode,complaint_id,statelist):
 def chatanswer(rec_msg,new_msg,state,mode,complaint_id,statelist,parent_tweet_id):
 	print state, statelist,"ahdkjasdkjasdgjaskgdajhdgasjh"
 	msg = ""
+	new_msg = ""
 	if state == -1:
-		print "Entered level0"
+		new_msg = ""
+		# print "Entered level0"
 		msg,state,mode,complaint_id,statelist=level0(rec_msg,new_msg,state,mode,statelist,complaint_id)
-		new_msg=new_msg+msg
+		new_msg=new_msg+". "+msg
 	# print "the state is "
 	# print 'updated state'
 	if state == 2 and statelist[state-1] == '0':
-		print "Entered state 2....description"
+		# print "Entered state 2....description"
 		msg,state,mode=getdesp(rec_msg,new_msg,state,mode,complaint_id,statelist)
-		new_msg=new_msg+msg
+		new_msg=new_msg+". "+msg
 	elif statelist[state-1] == '1':
 		state=state+1	
 	if state == 3 and statelist[state-1] == '0':
-		print "Entered state 3.....Type"
+		# print "Entered state 3.....Type"
 		msg,state,mode=gettype(rec_msg,new_msg,state,mode,complaint_id,statelist)
-		new_msg=new_msg+msg
+		new_msg=new_msg+". "+msg
 	elif statelist[state-1] == '1':
 		state=state+1
 	if state == 4 and statelist[state-1] == '0':
-		print "Entered state 4....location"
+		# print "Entered state 4....location"
 		msg,state,mode=getlocation(rec_msg,new_msg,state,mode,complaint_id,statelist)
-		new_msg=new_msg+msg
+		new_msg=new_msg+". "+msg
 	elif statelist[state-1] == '1':
 		state=state+1
 	if state == 5 and statelist[state-1] == '0':
-		print "Entered state 5....Lat Long"
+		# print "Entered state 5....Lat Long"
 		msg,state,mode=getlatlong(rec_msg,new_msg,state,mode,complaint_id,statelist,parent_tweet_id)
-		new_msg=new_msg+msg
+		new_msg=new_msg+". "+msg
 	elif statelist[state-1] == '1':
 		state=state+1
 	if state == 6 and statelist[state-1] == '0':
-		print "Entered state 6....Image"
+		# print "Entered state 6....Image"
 		msg,state,mode=getpicture(rec_msg,new_msg,state,mode,complaint_id,statelist)
-		new_msg=new_msg+msg
+		new_msg=new_msg+". "+msg
 	elif statelist[state-1] == '1':
 		state=state+1
 	if state == 7 and statelist[state-1] == '0':
-		print "Entered state 7....Success"
+		# print "Entered state 7....Success"
 		msg,state,mode=getsuccess(rec_msg,new_msg,state,mode,complaint_id,statelist)
-		new_msg = new_msg + msg
+		new_msg = new_msg +". "+ msg
 	elif statelist[state-1] == '1':
 		state=state+1
 	return new_msg,state,mode,statelist,complaint_id
-	# if state == 3:
-	# 	print "Entered state 3"
-	# 	msg,state,mode=getpic(new_msg,state,mode)
-	# 	new_msg=new_msg+msg
 
 
 
-# nlp_complaint("Broken road at NIT Warangal", "000000")
