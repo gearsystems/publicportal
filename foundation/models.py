@@ -32,7 +32,7 @@ class IncompleteComplaint(models.Model):
 	location = models.CharField(max_length = 100, null=True)
 	latitude = models.CharField(max_length = 30, null=True)
 	longitude = models.CharField(max_length = 30, null=True)
-	image=models.ImageField(upload_to='incomplete-complaints',blank=True)
+	image=models.ImageField(upload_to='complaint_images',blank=True)
 	# rating = models.FloatField()
 	def __unicode__(self):
 		return self.title

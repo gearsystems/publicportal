@@ -85,8 +85,9 @@ def livechatbot(request):
 		mode=int(request.POST.get('mode'))
 		state_list=request.POST.get('state_list')
 		complaint_id=int(request.POST.get('complaint_id'))
+		is_picture=0
 		msg_content=rec_msg
-		new_msg,state,mode,state_list,complaint_id=chatanswer(rec_msg,new_msg,state,mode,complaint_id,state_list)
+		new_msg,state,mode,state_list,complaint_id=chatanswer(rec_msg,new_msg,state,mode,complaint_id,state_list,is_picture)
 		response_data['message'] = new_msg
 		response_data['uid'] = 0
 		response_data['state']=state
@@ -108,3 +109,25 @@ def retlocation(request):
 	return HttpResponse(json.dumps(response_data),content_type="application/json")
 def maparea(request,p_t_id,address):
 	return render(request, 'try.djt',{'addr':address,'id': p_t_id})
+
+
+@csrf_protect
+def addpicture(request):
+	new_msg=""
+	response_data={}
+	if request.method == 'POST':
+		new_msg=""
+		rec_image=request.POST.get('content')
+		state=int(request.POST.get('state_flag'))
+		mode=int(request.POST.get('mode'))
+		state_list=request.POST.get('state_list')
+		complaint_id=int(request.POST.get('complaint_id'))
+		is_picture=1
+		new_msg,state,mode,state_list,complaint_id=chatanswer(rec_image,new_msg,state,mode,complaint_id,state_list,is_picture)
+		response_data['message'] = new_msg
+		response_data['uid'] = 0
+		response_data['state']=state
+		response_data['mode']=mode
+		response_data['complaint_id']=complaint_id
+		response_data['statelist']=state_list
+	return HttpResponse(json.dumps(response_data), content_type="application/json")

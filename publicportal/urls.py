@@ -25,8 +25,7 @@ urlpatterns = patterns('',
     url(r'^livechatbot','foundation.views.livechatbot'),
     url(r'^getlocation','foundation.views.retlocation'),
     url(r'^mapareachatbot/(?P<address>[\w ]+)/$','foundation.views.maparea2'),
-
-
+    url(r'^chatbotaddpicture','foundation.views.addpicture'),
 )
 
 

@@ -22,19 +22,34 @@
     color:rgb(0,0,0);
     font-size:120%">
     <strong>Me</strong>: {{ chat.message}}</p>
+    <p ng-if="chat.uid == 2" ng-bind-html="complaint_imagetag" class="bubble left" style="word-wrap:break-word;
+    padding-left=10px;
+    padding-right:10px;
+    color:rgb(255,255,255);
+    font-size:120%">
+    <strong>Bot</strong></p>
 		</div>
 	</div>
 </div>
 <div id="chatbox" class="row" style="height: 10%; padding-bottom: 3%;">
  <form ng-submit="addchat()" style="margin-top:30px;">
-	<div class="col-sm-9 col-sm-offset-1">
+	<div class="col-sm-7 col-sm-offset-1">
 		<input type="text" class="form-control" ng-model="newchat">
 	</div>
 	<div class="col-sm-2">
-	 <button type="submit" class="btn btn-primary">Post</button>
+	 <button type="submit" class="btn btn-primary" style="width:100%;">Post</button>
 	</div>
-</form>	  
+</form>
+<form ng-submit="addpic()">	
+<div class="col-sm-1" ng-hide="complaint_id == -1">
+   <input type='file' ng-model='complaint_image' class="filestyle" data-input="false" base-sixty-four-input>
+ </div>
+ <div class="col-sm-1" ng-hide="complaint_id == -1">
+   <button type="submit" class="btn btn-primary" style="width:100%;">Post</button>
+  </div>
+</form>
 </div>
+
 <div id="latlongmap" class="row" style="height: 20%;display:none; margin-top: 20px;">
   <div class="col-sm-9 col-sm-offset-1">
    <button type="submit" class="btn btn-primary" ng-click="getloc()" style="width: 100%;">Get Location</button>
