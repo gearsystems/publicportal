@@ -1,8 +1,10 @@
 var app = angular.module('ChatBot', ['ngCookies','naif.base64']);
 
 app.config(function($httpProvider) {
+    $httpProvider.defaults.withCredentials = true;
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
 });
 function generateMap(term) {
     var url = "http://maps.google.com/maps?=q="+encodeURIComponent(term)+"&output=embed&t=m&z=7";

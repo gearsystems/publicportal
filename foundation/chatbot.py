@@ -27,7 +27,7 @@ def nlp_complaint(message, stateslist):
 	loc, com = nlp.parse(message)
 	if (len(loc) != 0):
 		stateslist = update(stateslist,"location")
-		complaint.location=loc
+		complaint.location=loc.replace(',',' ')
 	if (len(com) != 0):
 		stateslist = update(stateslist,"title")
 		complaint.title=com[:com.find("https")]
@@ -82,7 +82,7 @@ def gettype(rec_msg,new_msg,state,mode,complaint_id,stateslist):
 		return "Give us a type from the following list%28MC  Municipality SB SwachhBharat%29",state,mode+1
 	else:
 		complaint=IncompleteComplaint.objects.get(id=complaint_id)
-		complaint.type=rec_msg
+		complaint.type=rec_msg[:2]
 		complaint.save()
 		return "Thank you for the type",state+1,mode+1
 
