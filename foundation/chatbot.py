@@ -30,7 +30,7 @@ def nlp_complaint(message, stateslist):
 		complaint.location=loc
 	if (len(com) != 0):
 		stateslist = update(stateslist,"title")
-		complaint.title=com
+		complaint.title=com[:com.find("https")]
 	complaint.save()
 	zero_index=stateslist.find('0')
 	return zero_index+1,stateslist,complaint.id
@@ -95,6 +95,9 @@ def level0(rec_msg,new_msg,state,mode,statelist,complaint_id):
 		return "Thank you for the for the complaint",state,mode+1,complaint_id,statelist
 
 def getsuccess(rec_msg,new_msg,state,mode,complaint_id,statelist):
+	ic = IncompleteComplaint.objects.get(id = complaint_id)
+	c = Complaint(userid = 1,image = ic.image, title=ic.title, type=ic.type,description = ic.description, latitude = ic.latitude,longitude = ic.longitude,location = ic.location)
+	c.save()
 	return "complaint has been lodged. here is your refererral"+str(complaint_id)+". ",state,mode
 
 

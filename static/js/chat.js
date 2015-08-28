@@ -25,7 +25,7 @@ function($scope,$http,$cookies,$sce){
    	  var newchat={'message':$scope.newchat,'uid':1};
    		$scope.chats.push(newchat);
    		var in_data = jQuery.param({'content': $scope.newchat,'csrfmiddlewaretoken': $cookies.csrftoken, 'state_flag': $scope.state, 'mode': $scope.mode,'complaint_id':$scope.complaint_id, 'state_list': $scope.statelist});
-   		var url='http://127.0.0.1:8000/livechatbot';
+   		var url='http://localhost:8000/livechatbot';
    		var my_data={test: 'data'};
    		$http.post(url, in_data)
           .success(function(out_data) {
@@ -64,7 +64,7 @@ function($scope,$http,$cookies,$sce){
    $scope.getloc=function(){
 
       var in_data = jQuery.param({'csrfmiddlewaretoken': $cookies.csrftoken,'complaint_id':$scope.complaint_id});
-      var url='http://127.0.0.1:8000/getlocation';
+      var url='http://localhost:8000/getlocation';
       var my_data={test: 'data'};
       $http.post(url, in_data)
           .success(function(out_data) {
@@ -76,7 +76,7 @@ function($scope,$http,$cookies,$sce){
             iframe.style.display = "block";
             iframe.style.width="100%";
             iframe.style.height="100%";
-            iframe.src = "http://127.0.0.1:8000/mapareachatbot/"+$scope.location_temp+"/";
+            iframe.src = "http://localhost:8000/mapareachatbot/"+$scope.location_temp+"/";
             document.getElementById('modal_map').appendChild(iframe);
             $('#myModal').modal('show');
           }
@@ -101,7 +101,7 @@ function($scope,$http,$cookies,$sce){
       $scope.complaint_imagetag=$sce.trustAsHtml(image_tag);
       $scope.chats.push(newchat);
       var in_data = jQuery.param({'content': $scope.complaint_image.base64,'csrfmiddlewaretoken': $cookies.csrftoken, 'state_flag': $scope.state, 'mode': $scope.mode,'complaint_id':$scope.complaint_id, 'state_list': $scope.statelist});
-      var url='http://127.0.0.1:8000/chatbotaddpicture';
+      var url='http://localhost:8000/chatbotaddpicture';
       var my_data={test: 'data'};
       $http.post(url, in_data)
           .success(function(out_data) {

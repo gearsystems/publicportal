@@ -3,10 +3,10 @@ import json
 import requests
 from requests_oauthlib import OAuth1
 
-api_key = "<api_key>"
-api_secret = "<api_secret>"
-access_token_key = "<access_token_key>"
-access_token_secret = "<access_token_secret>"
+api_key = "G6sE56UKzO6rTYnQtqVUZ9npu"
+api_secret = "uVxos5yQcGXHKbe0mJqykp1iTUuFZlckaA20nPkethgWQM7wjx"
+access_token_key = "3155136210-uvRjzVMveHB6iX2Ix9zHp8QVkZ5sCrCbiNXHs1B"
+access_token_secret = "PHwlyXMkBgEuzRuD4Q3r9bMCNfUDQXAzg0JC0SQwCrCfW"
 
 
 
