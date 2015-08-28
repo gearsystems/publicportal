@@ -9,7 +9,7 @@
 }
 body
   {
-    background-image: url("/static/img/bcgnd1.jpg");
+    /*background-image: url("/static/img/bcgnd1.jpg");*/
     background-size: 1300px 700px;
     background-repeat: repeat;
   }

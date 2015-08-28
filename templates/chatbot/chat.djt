@@ -8,8 +8,68 @@
 <div style="height: 100%;">
 <div class="row" id="Chatwindow" style="height: 85%; overflow-y:auto">
 	<div class="col-sm-11 col-sm-offset-1">
-	
-		<div class="row bubble-left" ng-repeat="chat in chats">
+<div class="media-body" >
+                                
+                                <div class="media" ng-repeat="chat in chats">
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img src="/static/img/gearbot.jpg" width="60" alt="woman" class="media-object" />
+                                        </a>
+                                    </div>
+                                    <div class="media-body message" ng-if="chat.uid == 0">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading panel-heading-white">
+                                                <div class="pull-right">
+                                                    <small class="text-muted">2 min ago</small>
+                                                </div>
+                                                <a href="#">GEARBot</a>
+                                            </div>
+                                            <div class="panel-body" >
+                                                {{ chat.message}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <div class="media-body message" ng-if="chat.uid == 1">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading panel-heading-white">
+                                                <div class="pull-right">
+                                                    <small class="text-muted">10 min ago</small>
+                                                </div>
+                                                <a href="#">Me</a>
+                                            </div>
+                                            <div class="panel-body">
+                                                {{ chat.message}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="media-right">
+                                        <img src="/static/img/guy.jpg" width="60" alt="" class="media-object" />
+                                    </div>
+                                </div>
+                                <div class="media">
+                                    <div class="media-left">
+                                        <img src="/static/img/gearbot.jpg" width="60" alt="" class="media-object" />
+                                    </div>
+                                    <div class="media-body message" ng-if="chat.uid == 2" ng-bind-html="complaint_imagetag">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading panel-heading-white">
+                                                <div class="pull-right">
+                                                    <small class="text-muted">1 day ago</small>
+                                                </div>
+                                                <a href="#">GEARBot</a>
+                                            </div>
+                                            <div class="panel-body">
+                                                Cool. It's settled. Tomorrow will discuss the project.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>	   
+     
+<!-- 		<div class="row bubble-left" ng-repeat="chat in chats">
 		<p ng-if="chat.uid == 0" class="bubble left" style="word-wrap:break-word;
     padding-left=10px;
     padding-right:10px;
@@ -28,16 +88,16 @@
     color:rgb(255,255,255);
     font-size:120%">
     <strong>Bot</strong></p>
-		</div>
+		</div> -->
 	</div>
 </div>
 <div id="chatbox" class="row" style="height: 10%; padding-bottom: 3%;">
  <form ng-submit="addchat()" style="margin-top:30px;">
 	<div class="col-sm-7 col-sm-offset-1">
-		<input type="text" class="form-control" ng-model="newchat">
+		<input type="text" class="form-control" ng-model="newchat" placeholder="Write message..." >
 	</div>
 	<div class="col-sm-2">
-	 <button type="submit" class="btn btn-primary" style="width:100%;">Post</button>
+	 <button type="submit" class="btn btn-primary" style="width:100%;">Send</button>
 	</div>
 </form>
 <form ng-submit="addpic()">	

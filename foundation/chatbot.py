@@ -88,7 +88,7 @@ def gettype(rec_msg,new_msg,state,mode,complaint_id,stateslist):
 
 def level0(rec_msg,new_msg,state,mode,statelist,complaint_id):
 	if mode%2 == 0:
-		return "What is your problem?",state,mode+1,complaint_id,statelist
+		return "What is your complaint?",state,mode+1,complaint_id,statelist
 	else:
 		state,statelist,complaint_id=nlp_complaint(rec_msg,statelist)
 		print state,statelist, complaint_id

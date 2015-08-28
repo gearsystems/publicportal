@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="{% static "css/module-sidebar-skins.min.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "css/module-navbar.min.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "css/module-maps.min.css" %}">
-
+    <link href="css/module-chat.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{% static "css/module-media.min.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "css/module-timeline.min.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "css/module-chat.min.css" %}">
