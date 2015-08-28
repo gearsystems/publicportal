@@ -13,7 +13,7 @@
                                 <div class="media" ng-repeat="chat in chats">
                                     <div class="media-left">
                                         <a href="#">
-                                            <img src="/static/img/gearbot.jpg" width="60" alt="woman" class="media-object" />
+                                            <img src="/static/img/gbot.jpg" width="60" alt="woman" class="media-object" />
                                         </a>
                                     </div>
                                     <div class="media-body message" ng-if="chat.uid == 0">
@@ -45,12 +45,12 @@
                                         </div>
                                     </div>
                                     <div class="media-right">
-                                        <img src="/static/img/guy.jpg" width="60" alt="" class="media-object" />
+                                        <img src="/static/img/user.jpg" width="60" alt="" class="media-object" />
                                     </div>
                                 </div>
                                 <div class="media">
                                     <div class="media-left">
-                                        <img src="/static/img/gearbot.jpg" width="60" alt="" class="media-object" />
+                                        <img src="/static/img/gbot.jpg" width="60" alt="" class="media-object" />
                                     </div>
                                     <div class="media-body message" ng-if="chat.uid == 2" ng-bind-html="complaint_imagetag">
                                         <div class="panel panel-default">
@@ -61,7 +61,7 @@
                                                 <a href="#">GEARBot</a>
                                             </div>
                                             <div class="panel-body">
-                                                Cool. It's settled. Tomorrow will discuss the project.
+                                                
                                             </div>
                                         </div>
                                     </div>
