@@ -9,18 +9,19 @@
 <div class="row" id="Chatwindow" style="height: 85%; overflow-y:auto">
 	<div class="col-sm-11 col-sm-offset-1">
 <div class="media-body" >
+<div ng-repeat="chat in chats">
                                 
-                                <div class="media" ng-repeat="chat in chats">
+                                <div class="media" ng-if="chat.uid == 0">
                                     <div class="media-left">
                                         <a href="#">
                                             <img src="/static/img/gbot.jpg" width="60" alt="woman" class="media-object" />
                                         </a>
                                     </div>
-                                    <div class="media-body message" ng-if="chat.uid == 0">
+                                    <div class="media-body message" >
                                         <div class="panel panel-default">
                                             <div class="panel-heading panel-heading-white">
                                                 <div class="pull-right">
-                                                    <small class="text-muted">2 min ago</small>
+                                                    <!-- <small class="text-muted">2 min ago</small> -->
                                                 </div>
                                                 <a href="#">GEARBot</a>
                                             </div>
@@ -30,12 +31,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="media">
-                                    <div class="media-body message" ng-if="chat.uid == 1">
+
+                                <div class="media" ng-if="chat.uid == 1">
+                                    <div class="media-body message" >
                                         <div class="panel panel-default">
                                             <div class="panel-heading panel-heading-white">
                                                 <div class="pull-right">
-                                                    <small class="text-muted">10 min ago</small>
+                                                    <!-- <small class="text-muted">10 min ago</small> -->
                                                 </div>
                                                 <a href="#">Me</a>
                                             </div>
@@ -48,11 +50,11 @@
                                         <img src="/static/img/user.jpg" width="60" alt="" class="media-object" />
                                     </div>
                                 </div>
-                                <div class="media">
+                                <div class="media" ng-if="chat.uid == 2">
                                     <div class="media-left">
                                         <img src="/static/img/gbot.jpg" width="60" alt="" class="media-object" />
                                     </div>
-                                    <div class="media-body message" ng-if="chat.uid == 2" ng-bind-html="complaint_imagetag">
+                                    <div class="media-body message"  >
                                         <div class="panel panel-default">
                                             <div class="panel-heading panel-heading-white">
                                                 <div class="pull-right">
@@ -60,14 +62,15 @@
                                                 </div>
                                                 <a href="#">GEARBot</a>
                                             </div>
-                                            <div class="panel-body">
+                                            <div class="panel-body" ng-bind-html="complaint_imagetag">
                                                 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 
-                            </div>	   
+                            </div>
+                        </div>	   
      
 <!-- 		<div class="row bubble-left" ng-repeat="chat in chats">
 		<p ng-if="chat.uid == 0" class="bubble left" style="word-wrap:break-word;
