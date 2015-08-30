@@ -59,7 +59,7 @@ pairs = (
 
   (r'(.*)',
   ( "Please tell me more.",
-    "Let's change focus a bit... Tell me about your family.",
+    "Let's change focus a bit... Tell me about your problem.",
     "Can you elaborate on that?",
     "Why do you say that %1?",
     "I see.",

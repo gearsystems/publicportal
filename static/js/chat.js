@@ -17,7 +17,7 @@ app.controller('ChatScreen',['$scope','$http','$cookies','$sce',
 function($scope,$http,$cookies,$sce){
    $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
    $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
-   $scope.base_url='http://127.0.0.1:8000/';
+   $scope.base_url='http://localhost:8000/';
    $scope.state=-1;
    $scope.mode=0;
    $scope.complaint_id=-1;
@@ -79,7 +79,7 @@ function($scope,$http,$cookies,$sce){
             iframe.style.display = "block";
             iframe.style.width="100%";
             iframe.style.height="100%";
-            iframe.src = "http://127.0.0.1:8000/mapareachatbot/"+$scope.location_temp+"/";
+            iframe.src = $scope.base_url+"/mapareachatbot/"+$scope.location_temp+"/";
             document.getElementById('modal_map').appendChild(iframe);
             $('#myModal').modal('show');
           }

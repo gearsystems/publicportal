@@ -98,7 +98,7 @@ def level0(rec_msg,new_msg,state,mode,statelist,complaint_id):
 		return "What is your complaint?",state,mode+1,complaint_id,statelist
 	else:
 		state,statelist,complaint_id=nlp_complaint(rec_msg,statelist)
-		return "Thank you for the for the complaint",state,mode+1,complaint_id,statelist
+		return "Thank you for the complaint",state,mode+1,complaint_id,statelist
 def getsuccess(rec_msg,new_msg,state,mode,complaint_id,statelist):
 	comp2=IncompleteComplaint.objects.get(id=complaint_id)
 	comp=Complaint()

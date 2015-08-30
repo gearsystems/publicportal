@@ -92,7 +92,7 @@ def level0(rec_msg,new_msg,state,mode,statelist,complaint_id):
 	else:
 		state,statelist,complaint_id=nlp_complaint(rec_msg,statelist)
 		print state,statelist, complaint_id
-		return "Thank you for the for the complaint",state,mode+1,complaint_id,statelist
+		return "Thank you for the complaint",state,mode+1,complaint_id,statelist
 
 def getsuccess(rec_msg,new_msg,state,mode,complaint_id,statelist):
 	ic = IncompleteComplaint.objects.get(id = complaint_id)
