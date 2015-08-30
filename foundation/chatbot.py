@@ -49,7 +49,7 @@ def getdesp(rec_msg,new_msg,state,mode,complaint_id,stateslist):
 def getlatlong(rec_msg,new_msg,state,mode,complaint_id,stateslist,parent_tweet_id):
 	if mode%2 == 0:
 		complaint=IncompleteComplaint.objects.get(id=complaint_id)
-		return "Please visit http%3A%2F%2F127%2E0%2E0%2E1%3A8000%2Fmaparea%2F"+str(parent_tweet_id)+"%2F"+complaint.location,state,mode+1
+		return "Please visit http://gearsystems.cloudapp.net%2Fmaparea%2F"+str(parent_tweet_id)+"%2F"+complaint.location,state,mode+1
 	else:
 		complaint=IncompleteComplaint.objects.get(id=complaint_id)
 		rec_msg=rec_msg.split(',')
