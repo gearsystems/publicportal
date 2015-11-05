@@ -167,7 +167,7 @@ $(document).ready(function() {
 								</tr>
 						</thead>
 						<tbody id="current">
-						<!--{# {% for issue in issues %}
+						{% for issue in issues %}
 							<tr>
 								<td>{{ issue.id}}</td>
 								<td>{{issue.description}}</td>
@@ -175,7 +175,7 @@ $(document).ready(function() {
 								<td>time</td>
 								<td><a href='/drivenav/route' class="btn btn-warning">Route here</a></td>
 							</tr>
-						{% endfor %} #}-->
+						{% endfor %}
 						</tbody>
 					</table> 
 				</div>
