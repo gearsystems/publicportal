@@ -63,10 +63,10 @@ WSGI_APPLICATION = 'publicportal.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'gear_publicportal',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'USER': 'root',
+        'PASSWORD': '',
         'HOST': '',
         'PORT': '',
     }
