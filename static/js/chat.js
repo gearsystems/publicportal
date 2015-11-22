@@ -79,7 +79,7 @@ function($scope,$http,$cookies,$sce){
             iframe.style.display = "block";
             iframe.style.width="100%";
             iframe.style.height="100%";
-            iframe.src = $scope.base_url+"/mapareachatbot/"+$scope.location_temp+"/";
+            iframe.src = $scope.base_url+"mapareachatbot/"+$scope.location_temp+"/";
             document.getElementById('modal_map').appendChild(iframe);
             $('#myModal').modal('show');
           }
