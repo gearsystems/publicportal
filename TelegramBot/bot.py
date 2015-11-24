@@ -5,7 +5,6 @@ import requests
 from StringIO import StringIO
 from PIL import Image
 
-
 LAST_UPDATE_ID = None
 ans_stage = 0
 
@@ -22,9 +21,11 @@ def createFilename(url, name, folder):
 def getImage(url, name=None, folder='../media/'):
     file = createFilename(url, name, folder)
     r = requests.get(url)
-    i = Image.open(StringIO(r.content))
-    i.save(file)
-    ans_stage = 5
+    f = open("../media/"+name, "wb")
+    f.write(r.content)
+    f.close()
+    # ans_stage += 1
+    # LAST_UPDATE_ID = update.update_id + 1
 
 def main():
     global LAST_UPDATE_ID
@@ -55,27 +56,44 @@ def echo(bot):
         # chat_id is required to reply any message
         chat_id = update.message.chat_id
         message = update.message.text.encode('utf-8')
-        try:
-            documentMessage = update.message.document.file_id # File ID of the image obtained
-            documentMessageName = update.message.document.file_name # Name of the file
-            print documentMessage+ ' ' + documentMessageName
-            filepath = bot.getFile(documentMessage)
-            urlDownloadImage = filepath.file_path
-            getImage(urlDownloadImage, documentMessageName)
-            bot.sendMessage(chat_id=chat_id, text="Write comment(optional). Please reply 'No' if not interested")
-            documentMessage = None
-            documentMessageName = None
-        except:
-            print 'Error Thrown'
-        # getFile() helps to retrieve document image, DEBUG use .to_json() function for experimenting
+        image = update.message.photo
+        document = update.message.document
+        location = update.message.location
+        if image or document:
+            try:
+                # print 'yes'
+                if image:
+                    documentMessage = update.message.photo[len(update.message.photo)-1].file_id # File ID of the image obtained
+                    documentMessageName = documentMessage+'.jpg' # Name of the file
+                else:
+                    documentMessage = update.message.document.file_id # File ID of the document obtained
+                    documentMessageName = update.message.document.file_name # Name of the file
+                print 'Id: '+documentMessage+'\nName: '+documentMessageName
+                # bot.sendMessage(chat_id=chat_id, text='Id: '+documentMessage+'\nName: '+documentMessageName)
+
+                # documentMessageName = update.message.document.file_name # Name of the file
+                # print documentMessage+ ' ' + documentMessageName
+                filepath = bot.getFile(documentMessage)
+                print filepath
+                urlDownloadImage = filepath.file_path
+                print urlDownloadImage
+                getImage(urlDownloadImage, documentMessageName)
+                # bot.sendMessage(chat_id=chat_id, text="Write comment(optional). Please reply 'No' if not interested")
+                # LAST_UPDATE_ID = update.update_id + 1
+                ans_stage += 1
+                documentMessage = None
+                documentMessageName = None
+            except:
+                print 'Error Thrown'
+            # getFile() helps to retrieve document image, DEBUG use .to_json() function for experimenting
         tempSplit = message.split(' ')[1:]
         Str = ''
         for i in tempSplit:
             Str += i + ' '
         command = message.split(' ')[0]
 
-        if command == '/reverse':
-            message = Str[::-1]
+        # if command == '/reverse':
+        #     message = Str[::-1]
 
         if command == '/start':
             custom_keyboard = [[ telegram.Emoji.THUMBS_UP_SIGN, telegram.Emoji.THUMBS_DOWN_SIGN ]]
@@ -87,7 +105,9 @@ def echo(bot):
 
         print str(chat_id) + ' :: ' + message
 
-        if message:
+        if message or image or location:
+            # filehandler=open(image,'wb')
+            # filehandler.save()
             if ans_stage == 1:
                 # Reply the message
                 # if message == 'yes':
@@ -122,11 +142,13 @@ def echo(bot):
                     reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard)
                     bot.sendMessage(chat_id=chat_id, text="Oops, wrong input. Try again.", reply_markup = reply_markup)
                 #add the anonymity in the databse here
+                # ans_stage += 1
                 bot.sendMessage(chat_id=chat_id, text="Attach a photo.", reply_markup = telegram.ReplyKeyboardHide())
-                ans_stage += 1
+                # ans_stage += 1
                 # LAST_UPDATE_ID = update.update_id + 1
             elif ans_stage == 4:
                 #add the photo in the database
+                bot.sendMessage(chat_id=chat_id, text="Write comment(optional). Please reply 'No' if not interested", reply_markup = telegram.ReplyKeyboardHide())
                 ans_stage += 1
                 # LAST_UPDATE_ID = update.update_id + 1
 
@@ -140,8 +162,8 @@ def echo(bot):
                 #add the location in the database
                 lat = update.message.location.latitude
                 lng = update.message.location.longitude
-                MSG = 'You are posting from '+lat+ ' '+lng+' \n'
-                bot.sendMessage(chat_id=chat_id, text="Thanks for your co-operation. Have a nice day.")
+                bot.sendMessage(chat_id=chat_id, text="Your location: ("+str(lat)+", "+str(lng)+")")                
+                bot.sendMessage(chat_id=chat_id, text="Thanks for your co-operation. Have a nice day. Type /start to register a new complaint.")
                 ans_stage += 1
 
         # Updates global offset to get the new updates
