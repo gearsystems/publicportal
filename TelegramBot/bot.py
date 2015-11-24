@@ -1,11 +1,30 @@
 import logging
 import telegram
 from token import TOKEN
+import requests
+from StringIO import StringIO
+from PIL import Image
 
 
 LAST_UPDATE_ID = None
 ans_stage = 0
 
+def createFilename(url, name, folder):
+    dotSplit = url.split('.')
+    if name == None:
+        # use the same as the url
+        slashSplit = dotSplit[-2].split('/')
+        name = slashSplit[-1]
+    ext = dotSplit[-1]
+    file = '{}{}.{}'.format(folder, name, ext)
+    return file
+
+def getImage(url, name=None, folder='../media/'):
+    file = createFilename(url, name, folder)
+    r = requests.get(url)
+    i = Image.open(StringIO(r.content))
+    i.save(file)
+    ans_stage = 5
 
 def main():
     global LAST_UPDATE_ID
@@ -36,6 +55,19 @@ def echo(bot):
         # chat_id is required to reply any message
         chat_id = update.message.chat_id
         message = update.message.text.encode('utf-8')
+        try:
+            documentMessage = update.message.document.file_id # File ID of the image obtained
+            documentMessageName = update.message.document.file_name # Name of the file
+            print documentMessage+ ' ' + documentMessageName
+            filepath = bot.getFile(documentMessage)
+            urlDownloadImage = filepath.file_path
+            getImage(urlDownloadImage, documentMessageName)
+            bot.sendMessage(chat_id=chat_id, text="Write comment(optional). Please reply 'No' if not interested")
+            documentMessage = None
+            documentMessageName = None
+        except:
+            print 'Error Thrown'
+        # getFile() helps to retrieve document image, DEBUG use .to_json() function for experimenting
         tempSplit = message.split(' ')[1:]
         Str = ''
         for i in tempSplit:
@@ -95,7 +127,6 @@ def echo(bot):
                 # LAST_UPDATE_ID = update.update_id + 1
             elif ans_stage == 4:
                 #add the photo in the database
-                bot.sendMessage(chat_id=chat_id, text="Write comment(optional). Please reply 'No' if not interested")
                 ans_stage += 1
                 # LAST_UPDATE_ID = update.update_id + 1
 
@@ -107,6 +138,9 @@ def echo(bot):
 
             elif ans_stage == 6:
                 #add the location in the database
+                lat = update.message.location.latitude
+                lng = update.message.location.longitude
+                MSG = 'You are posting from '+lat+ ' '+lng+' \n'
                 bot.sendMessage(chat_id=chat_id, text="Thanks for your co-operation. Have a nice day.")
                 ans_stage += 1
 
