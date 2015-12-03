@@ -60,18 +60,7 @@ WSGI_APPLICATION = 'publicportal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gear_publicportal',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-    }
-}
-
+from databases import DATABASES
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
